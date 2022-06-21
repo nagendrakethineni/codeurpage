@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Login - Netgigs</title>
+<link rel="stylesheet" href="css/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<body>
+<div class="w3-content w3-justify w3-text-grey w3-padding-64">
+	<form method="post" action="" id="myform">
+	  <p><input class="w3-input w3-padding-16" type="email" placeholder="Email" required="" name="email" id="email" pattern="[^ @]*@[^ @]*"></p>
+          <p><input class="w3-input w3-padding-16" type="password" placeholder="Password" required="" name="password" id="password"></p>
+	  <p>
+        <button class="w3-btn w3-teal w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> LOGIN
+        </button>
+         <a class="w3-btn w3-teal w3-padding-large" href="/forgot/"><i class="fa fa-paper-plane"></i> RESET PASSWORD</a>
+      </p>
+    </form>
+    <script type="text/javascript">
+    $(document).ready(function(){
+           $("#myform").on('submit', function(e){
+             e.preventDefault();
+            var formData = $(this).serialize();
+               $.ajax({
+                type: 'POST',
+                url: 'login.php',
+                data: formData,
+                success: function(response) {
+                  //  alert(response)
+                    $("#result").html(response);
+                var res=response.split('&');
+                var res1=res[0];
+                var email=res[1];
+                localStorage.setItem("storageName",email);
+                if(res1=="Success"){location.href = "session.php"}
+                }
+            });
+   });
+  });
+
+   if ( window.history.replaceState ) {
+     window.history.replaceState( null, null, window.location.href );
+ }
+</script>
+<div id="result" style="color:red;font-family:Verdana;">
+</div>
+</div>
+</body>
+</html>

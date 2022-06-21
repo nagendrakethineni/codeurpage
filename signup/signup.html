@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Signup - Netgigs</title>
+<link rel="stylesheet" href="/css/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<body>
+<div class="w3-content w3-justify w3-text-grey w3-padding-64">
+          <form method="post" action="" id="signup">
+	  <p>You are selecting the following Plan</p>
+	  <p><input type="radio" value="BASIC " name="role" checked>  Basic</input>
+	     <input type="radio" value="PRO " name="role">  Pro</input>
+	     <input type="radio" value="PREMIUM " name="role">  Premium</input></p>
+          <p><input class="w3-input w3-padding-16" type="text" placeholder="Name" required="" name="name" id="name"></p>
+          <p><input class="w3-input w3-padding-16" type="email" placeholder="Email" required="" name="email" id="email" pattern="[^ @]*@[^ @]*"></p>
+          <p><input class="w3-input w3-padding-16" type="password" placeholder="Password" required="" name="password" id="password"></p>
+          <p><input class="w3-input w3-padding-16" type="password" placeholder="Confirm Password" required="" name="confirm_password" id="confirm_password"></p>
+          <p><textarea class="w3-input w3-padding-16" placeholder="Address" required="" name="address" id="address"></textarea></p>
+      <p>
+        <button class="w3-btn w3-teal w3-padding-large" type="submit">
+          <i class="fa fa-paper-plane"></i> SIGNUP
+        </button>
+	<a class="w3-btn w3-teal w3-padding-large" href="/login/"><i class="fa fa-paper-plane"></i> LOGIN</a>
+      </p>
+    </form>
+<script type="text/javascript">
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+</script>
+       <script type="text/javascript">
+    $(document).ready(function(){
+           $("#signup").on('submit', function(e){
+	    e.preventDefault();
+            var formData = $(this).serialize();
+               $.ajax({
+                type: 'POST',
+                url: 'signup.php',
+                data: formData,
+                success: function(response) {
+                   // alert(response)
+                    $("#result").text(response);
+
+                }
+            });
+   });
+  });
+
+   if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+<div id="result" style="color:red;font-family:Verdana;">
+</div>
+</body>
+</html>
